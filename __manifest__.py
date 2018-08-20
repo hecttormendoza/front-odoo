@@ -3,9 +3,13 @@
     'category': 'Website',
     'description': '',
     'version': '11.0',
-    'depends': ['base'],
+    'depends': ['website_sale',],
     'data': [
-        'views/templates.xml'
+        'views/templates.xml',
+        'views/views.xml',
+    ],
+    'demo': [
+        'demo/demo.xml'
     ],
     'installable': True,
     'auto_install': False

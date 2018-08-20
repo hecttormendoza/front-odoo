@@ -1,48 +1,70 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-  <template id="other-template">
-    <h1>Hello... It's me</h1>
-    <t t-raw="0"/>
-  </template>
   <template id="index">
-    <title>Academy</title>
-    <!-- <t t-foreach="teachers" t-as="teacher">
-      <p t-esc="teacher"></p>
+    <t t-call="website.layout">
+      <t t-set="title">Academy</t>
+      <div class="oe_structure">
+        <div class="container">
+          <t t-esc="user_id.name"/>
+          <t t-foreach="teachers" t-as="teacher">
+            <p>
+              <a t-attf-href="/academy/{{ slug(teacher) }}">
+                <!-- <t t-esc="teacher.id"/> -->
+                <t t-esc="teacher.name"/>
+              </a>
+            </p>
+          </t>
+        </div>
+      </div>
     </t>
-    <div t-if="2 == 1">
-      <p>Test</p>
-    </div>
-    <t t-foreach="[1,2,3,4,5]" t-as="i">
-      <p><t t-esc="i" /></p>
-      <p>VALUE</p>
-      <t t-esc="i_value"/>
-      <p>INDEX</p>
-      <t t-esc="i_index"/>
-      <p>SIZE</p>
-      <t t-esc="i_size"/>
-      <p>FIRST</p>
-      <t t-esc="i_first"/>
-      <p>LAST</p>
-      <t t-esc="i_last"/>
-      <p>PARITY</p>
-      <t t-esc="i_parity"/>
-      <p>EVEN</p>
-      <t t-esc="i_even"/>
-      <p>ODD</p>
-      <t t-esc="i_odd"/>
-    </t> -->
-    <!-- <div t-att-a="42"></div>
-    <t t-foreach="[1,3,4,5,6,7]" t-as="item">
-      <li t-attf-class="row {{ item }}">
-        <t t-esc="item"/>
-      </li>
-    </t> -->
-    <!-- <div t-att="{'a': 1, 'b': 2}"/>
-    <div t-att="['a', 'b']"/> -->
-    <!-- <t t-set="foo" t-value="'There is no back'"/> -->
-    <!-- <t t-esc="foo"/> -->
-    <t t-call="academy.other-template">
-      <em>Algo</em>
+  </template>
+  <template id="biography">
+    <t t-call="website.layout">
+      <t t-set="title">Academy</t>
+      <div class="oe_structure"/>
+      <div class="oe_structure">
+        <div>
+          <!-- <t t-esc="person.id"/> -->
+          <h3 t-field="person.name"/>
+          <p>
+            Last modified:
+            <i
+              t-field="person.write_date"
+              t-options="{'widget': 'relative'}"
+              />
+          </p>
+        </div>
+        <div t-field="person.biography"/>
+      </div>
+      <div class="oe_structure"/>
     </t>
+  </template>
+  <template id="products_item" inherit_id="website_sale.products_item">
+    <xpath expr="//h5" position="after">
+      <p t-esc="product.id"/>
+    </xpath>
+    <xpath expr="//h5" position="attributes">
+      <attribute name="class" add="col-md-12" separator=" "/>
+    </xpath>
+    <xpath expr="//h5" position="after">
+      <t t-foreach="product.public_categ_ids" t-as="category">
+        <p t-esc="category.name"/>
+      </t>
+    </xpath>
+  </template>
+  <!-- <template id="layout" inherit_id="website.layout">
+    <xpath expr="//t[@t-set='head_website']" position="inside">
+      <t t-set="global_categs" t-value="env['product.public.category'].search([('parent_id', '=', False)])"/>
+    </xpath>
+  </template> -->
+  <template id="frontend_layout" inherit_id="portal.frontend_layout">
+    <xpath expr="//div[hasclass('navbar-default')]" position="after">
+      <t t-set="global_categs" t-value="env['product.public.category'].search([('parent_id', '=', False)])"/>
+      <t t-foreach="global_categs" t-as="categories">
+        <a t-attf-href="/shop/category/{{ slug(categories) }}">
+          <t t-esc="categories.name"/>
+        </a>
+      </t>
+    </xpath>
   </template>
 </odoo>
