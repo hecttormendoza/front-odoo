@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <template id="index">
+    <title>Academy</title>
+    <t t-foreach="teachers" t-as="teacher">
+      <p t-esc="teacher"></p>
+    </t>
+    <div t-if="2 == 1">
+      <p>Test</p>
+    </div>
+  </template>
+</odoo>
