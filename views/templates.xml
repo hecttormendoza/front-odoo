@@ -7,13 +7,22 @@
         <div class="container">
           <t t-esc="user_id.name"/>
           <t t-foreach="teachers" t-as="teacher">
-            <p>
-              <a t-attf-href="/academy/{{ slug(teacher) }}">
-                <!-- <t t-esc="teacher.id"/> -->
+            <p class="rpc-container" t-att-data-teacher-id="teacher.id">
+              <!-- <t t-esc="teacher.id"/> -->
+              <a class="rpc-button" href="#">
                 <t t-esc="teacher.name"/>
               </a>
             </p>
           </t>
+          <div class="biography"></div>
+          <!-- <div class="counter">
+            <span class="val"></span>
+            <button>Increment</button>
+          </div> -->
+          <!-- <div class="rpc-container">
+            <span class="val"></span>
+            <button class="btn btn-primary btn-lg rpc-button">Do a RPC Call!</button>
+          </div> -->
         </div>
       </div>
     </t>
